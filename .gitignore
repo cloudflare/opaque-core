@@ -1,0 +1,11 @@
+.DS_Store
+bin/
+testing/testing
+.vscode/
+.history/
+coverage.txt
+profile.cov
+.cover/**
+.golangci.yml
+setup.sh
+jsontest/*
