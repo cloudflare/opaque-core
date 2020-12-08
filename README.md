@@ -13,7 +13,7 @@ production systems.
 Get the source code:
 
 ```sh
-go get github.com/cloudflare/opaque-core
+git clone https://github.com/cloudflare/opaque-core
 ```
 
 ## Running tests
