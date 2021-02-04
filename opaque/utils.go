@@ -14,7 +14,12 @@ import (
 // It runs the OPRF protocol locally with a dummy client.
 // Only for testing - in a real setting the server does not know the password.
 func RunLocalOPRF(s *Server, username, password string) ([]byte, error) {
-	client, err := NewClient(username, s.Config.ServerID, s.Config.Suite)
+	signer, err := mint.NewSigningKey(mint.ECDSA_P521_SHA512)
+	if err != nil {
+		return nil, err
+	}
+
+	client, err := NewClient(username, s.Config.ServerID, s.Config.Suite, signer)
 	if err != nil {
 		return nil, errors.Wrap(err, "new client")
 	}
@@ -29,7 +34,7 @@ func RunLocalOPRF(s *Server, username, password string) ([]byte, error) {
 		return nil, err
 	}
 
-	s.UserRecord.OprfState = oprfServer
+	s.UserRecord.OprfServer = oprfServer
 	oprf2, err := s.evaluate(oprf1)
 	if err != nil {
 		return nil, errors.Wrap(err, "evaluate")
@@ -41,7 +46,7 @@ func RunLocalOPRF(s *Server, username, password string) ([]byte, error) {
 	}
 
 	s.UserRecord.UserID = []byte(username)
-	s.UserRecord.OprfState = oprfServer
+	s.UserRecord.OprfServer = oprfServer
 
 	return rwd, nil
 }

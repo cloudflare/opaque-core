@@ -61,13 +61,13 @@ func RegisterAndRunOPAQUE(suite oprf.SuiteID) error {
 
 	username := "user"
 	password := []byte("password")
-	c, err := NewClient(username, domain, suite)
+	c, err := NewClient(username, domain, suite, signer)
 	if err != nil {
 		return errors.Wrap(err, "new client")
 	}
 
 	// REGISTRATION FLOW
-	regRequest, err := c.CreateRegistrationRequest(string(password), signer)
+	regRequest, err := c.CreateRegistrationRequest(string(password))
 	if err != nil {
 		return errors.Wrap(err, "create reg request")
 	}

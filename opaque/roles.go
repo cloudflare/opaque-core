@@ -127,7 +127,7 @@ func (s *Server) InsertNewUserRecord(userPublicKey crypto.PublicKey, envelope *E
 }
 
 // NewClient returns a new OPAQUE client.
-func NewClient(userID, serverID string, suite oprf.SuiteID) (*Client, error) {
+func NewClient(userID, serverID string, suite oprf.SuiteID, signerKey crypto.Signer) (*Client, error) {
 	oprfClient, err := oprf.NewClient(suite)
 	if err != nil {
 		return nil, err
@@ -137,6 +137,7 @@ func NewClient(userID, serverID string, suite oprf.SuiteID) (*Client, error) {
 		UserID:    []byte(userID),
 		ServerID:  []byte(serverID),
 		oprfState: oprfClient,
+		signer:    signerKey,
 		suite:     suite,
 	}, nil
 }

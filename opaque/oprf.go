@@ -52,7 +52,7 @@ func (s *Server) evaluate(clientMessage []byte) ([]byte, error) {
 	var blinded [][]byte
 	blinded = append(blinded, []byte(clientMessage))
 
-	evaluation, err := s.UserRecord.OprfState.Evaluate(blinded)
+	evaluation, err := s.UserRecord.OprfServer.Evaluate(blinded)
 	if err != nil {
 		return nil, err
 	}

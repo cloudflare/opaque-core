@@ -40,7 +40,7 @@ import (
 type UserRecord struct {
 	UserID        []byte
 	UserPublicKey crypto.PublicKey
-	OprfState     *oprf.Server
+	OprfServer    *oprf.Server
 	Envelope      *Envelope
 }
 

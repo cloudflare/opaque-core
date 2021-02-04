@@ -122,19 +122,17 @@ func TestEncryptDecryptCredentials(t *testing.T) {
 }
 
 func TestCredentialEncryptionPolicy(t *testing.T) {
-	c, err := NewClient("user", "server", oprf.OPRFP256)
-	if err != nil {
-		t.Error(err)
-		return
-	}
-
 	clientSigner, err := mint.NewSigningKey(mint.ECDSA_P256_SHA256)
 	if err != nil {
 		t.Error(err)
 		return
 	}
 
-	c.signer = clientSigner
+	c, err := NewClient("user", "server", oprf.OPRFP256, clientSigner)
+	if err != nil {
+		t.Error(err)
+		return
+	}
 
 	serverSigner, err := mint.NewSigningKey(mint.ECDSA_P256_SHA256)
 	if err != nil {

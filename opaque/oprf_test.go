@@ -58,7 +58,7 @@ func TestOPRFFlow(t *testing.T) {
 		t.Error(err)
 	}
 
-	client, err := NewClient(username, domain, oprf.OPRFP256)
+	client, err := NewClient(username, domain, oprf.OPRFP256, signer)
 	if err != nil {
 		t.Errorf("new client error: %v", err)
 	}

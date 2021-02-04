@@ -35,9 +35,7 @@ import (
 // CreateRegistrationRequest is called by the client for registration.
 // This function creates the first OPAQUE registration message.
 // Errors if the OPRF message cannot be created.
-func (c *Client) CreateRegistrationRequest(password string, key crypto.Signer) (*RegistrationRequest, error) {
-	c.signer = key
-
+func (c *Client) CreateRegistrationRequest(password string) (*RegistrationRequest, error) {
 	blinded, err := c.blind(password)
 	if err != nil {
 		return nil, err
@@ -63,11 +61,11 @@ func (s *Server) CreateRegistrationResponse(msg *RegistrationRequest) (*Registra
 		return nil, err
 	}
 
-	s.UserRecord.OprfState = oprfServer
+	s.UserRecord.OprfServer = oprfServer
 	eval, err := s.evaluate(msg.OprfData)
 	if err != nil {
 		s.UserRecord.UserID = nil
-		s.UserRecord.OprfState = nil
+		s.UserRecord.OprfServer = nil
 		return nil, err
 	}
 
