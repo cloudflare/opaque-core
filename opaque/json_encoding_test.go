@@ -98,8 +98,8 @@ func TestMarshalUnmarshalJSONRegistrationUpload(t *testing.T) {
 	}
 
 	regUpload1 := &RegistrationUpload{
-		Envelope:      getDummyEnvelope(),
-		UserPublicKey: signer.Public(),
+		Envelope:        getDummyEnvelope(),
+		ClientPublicKey: signer.Public(),
 	}
 
 	raw, err := regUpload1.MarshalJSON()

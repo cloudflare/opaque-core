@@ -90,7 +90,6 @@ func TestMarshalUnmarshalCredentialExtension(t *testing.T) {
 
 func TestEncryptDecryptCredentials(t *testing.T) {
 	key := common.GetRandomBytes(32)
-	nonceLen := 32
 
 	creds1, err := getDummyCredentials() // user record does not matter for this test
 	if err != nil {
@@ -98,7 +97,7 @@ func TestEncryptDecryptCredentials(t *testing.T) {
 		return
 	}
 
-	envelope, exportedKey, err := EncryptCredentials(key, creds1, nonceLen)
+	envelope, exportedKey, err := EncryptCredentials(key, creds1)
 	if err != nil {
 		t.Errorf("encryption error: %v", err)
 		return
@@ -189,9 +188,8 @@ func checkPolicy(client *Client, serverPublicKey crypto.PublicKey, policy *Crede
 	}
 
 	key := common.GetRandomBytes(32)
-	nonceLen := 32
 
-	encrypted, _, err := EncryptCredentials(key, creds, nonceLen)
+	encrypted, _, err := EncryptCredentials(key, creds)
 	if err != nil {
 		return errors.Wrap(err, "encrypt creds")
 	}

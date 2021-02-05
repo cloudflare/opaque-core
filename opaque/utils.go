@@ -92,8 +92,7 @@ func GetTestUserRecord(s *Server, username, password string) (*UserRecord, error
 		return nil, errors.Wrap(err, "new test creds")
 	}
 
-	nonceLen := int(32)
-	envelope, exportedKey, err := EncryptCredentials(rwd, creds, nonceLen)
+	envelope, exportedKey, err := EncryptCredentials(rwd, creds)
 	if err != nil {
 		return nil, errors.Wrap(err, "encrypt credentials")
 	}

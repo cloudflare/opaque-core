@@ -124,7 +124,7 @@ type registrationUploadJSON struct {
 
 // MarshalJSON encodes the RegistrationUpload.
 func (rr *RegistrationUpload) MarshalJSON() ([]byte, error) {
-	rawPubKey, err := x509.MarshalPKIXPublicKey(rr.UserPublicKey)
+	rawPubKey, err := x509.MarshalPKIXPublicKey(rr.ClientPublicKey)
 	if err != nil {
 		return nil, err
 	}
@@ -160,8 +160,8 @@ func UnmarshalRegistrationUploadJSON(b []byte) (*RegistrationUpload, error) {
 		AuthTag:            rrJSON.AuthTag,
 	}
 	r := &RegistrationUpload{
-		Envelope:      env,
-		UserPublicKey: pubKey,
+		Envelope:        env,
+		ClientPublicKey: pubKey,
 	}
 
 	return r, nil

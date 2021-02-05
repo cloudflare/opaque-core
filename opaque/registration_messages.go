@@ -148,8 +148,8 @@ func (*RegistrationResponse) Type() ProtocolMessageType {
 //                  2
 // | envelope | pubKeyLen | pubKey.
 type RegistrationUpload struct {
-	Envelope      *Envelope
-	UserPublicKey crypto.PublicKey
+	Envelope        *Envelope
+	ClientPublicKey crypto.PublicKey
 }
 
 type registrationUploadInner struct {
@@ -159,7 +159,7 @@ type registrationUploadInner struct {
 
 // Marshal returns the raw form of a RegistrationUpload.
 func (ru *RegistrationUpload) Marshal() ([]byte, error) {
-	rawPublicKey, err := x509.MarshalPKIXPublicKey(ru.UserPublicKey)
+	rawPublicKey, err := x509.MarshalPKIXPublicKey(ru.ClientPublicKey)
 	if err != nil {
 		return nil, err
 	}
@@ -188,8 +188,8 @@ func (ru *RegistrationUpload) Unmarshal(data []byte) (int, error) {
 	}
 
 	*ru = RegistrationUpload{
-		Envelope:      inner.Envelope,
-		UserPublicKey: userPublicKey,
+		Envelope:        inner.Envelope,
+		ClientPublicKey: userPublicKey,
 	}
 
 	return bytesRead, nil

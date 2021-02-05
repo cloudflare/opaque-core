@@ -223,14 +223,14 @@ func (cel CredentialExtensionList) Marshal() ([]byte, error) {
 
 // EncryptCredentials encrypts the given Credentials
 // under a key derived from rwd, the randomized password.
-func EncryptCredentials(rwd []byte, creds *Credentials, nonceLength int) (*Envelope, []byte, error) {
-	nonce := common.GetRandomBytes(nonceLength)
-
+func EncryptCredentials(rwd []byte, creds *Credentials) (*Envelope, []byte, error) {
+	nonce := common.GetRandomBytes(32)
 	plaintext, authData, err := creds.MarshalSplit()
 	if err != nil {
 		return nil, nil, err
 	}
 
+	// TODO: the nonce is not needed here
 	otp, err := NewAuthenticatedOneTimePad(rwd, nonce, len(plaintext))
 	if err != nil {
 		return nil, nil, err

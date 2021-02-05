@@ -81,8 +81,8 @@ func TestMarshalUnmarshalRegistrationUpload(t *testing.T) {
 	}
 
 	regUpload1 := &RegistrationUpload{
-		Envelope:      getDummyEnvelope(),
-		UserPublicKey: signer.Public(),
+		Envelope:        getDummyEnvelope(),
+		ClientPublicKey: signer.Public(),
 	}
 
 	regUpload2 := &RegistrationUpload{}

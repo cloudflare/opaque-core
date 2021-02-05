@@ -94,19 +94,15 @@ func (c *Client) FinalizeRegistrationRequest(msg *RegistrationResponse) (*Regist
 		return nil, nil, err
 	}
 
-	// a fresh random nonce Nonce of length LH, where LH is the
-	// output length in bytes of the hash function underlying HKDF.
-	// OPRFP256 hash function is SHA256.
-	nonceLen := int(32)
-	envelope, exporterKey, err := EncryptCredentials(rwd, creds, nonceLen)
+	envelope, exporterKey, err := EncryptCredentials(rwd, creds)
 	if err != nil {
 		c.oprf1 = nil
 		return nil, nil, err
 	}
 
 	return &RegistrationUpload{
-		Envelope:      envelope,
-		UserPublicKey: c.signer.Public(),
+		Envelope:        envelope,
+		ClientPublicKey: c.signer.Public(),
 	}, exporterKey, nil
 }
 
@@ -115,7 +111,7 @@ func (c *Client) FinalizeRegistrationRequest(msg *RegistrationResponse) (*Regist
 // Errors if the record cannot be added, e.g. because the username has already
 // been registered.
 func (s *Server) StoreUserRecord(msg *RegistrationUpload) error {
-	record, err := s.InsertNewUserRecord(msg.UserPublicKey, msg.Envelope)
+	record, err := s.InsertNewUserRecord(msg.ClientPublicKey, msg.Envelope)
 
 	s.UserRecord = record
 

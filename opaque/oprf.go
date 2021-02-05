@@ -66,7 +66,7 @@ func (c *Client) finalizeHarden(serverMessage []byte) ([]byte, error) {
 	element = append(element, []byte(serverMessage))
 
 	eval := &oprf.Evaluation{Elements: element}
-	rwd, err := c.oprfState.Finalize(c.oprf1, eval, []byte("OPAQUE00"))
+	rwd, err := c.oprfState.Finalize(c.oprf1, eval, []byte("OPAQUE"))
 	if err != nil {
 		return nil, err
 	}
