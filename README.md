@@ -34,6 +34,32 @@ The marshaling and unmarshaling of messages can be found on the core_messages.go
 request_messages.go and register_messages.go respectively.
 A json encoding of messages can be found on the json_encoding.go file.
 
+## How to Cite
+
+To cite OPAQUE-core, use one of the following formats and update with the date
+you accessed this project.
+
+APA Style
+
+```
+Bradley, T. and Celi, S. (2020). Introducing OPAQUE-core:
+A Proof of Concept implementation of OPAQUE main functionality. Cloudflare.
+Available at https://github.com/cloudflare/opaque-core. Accessed Feb 2021.
+```
+
+Bibtex Source
+
+```bibtex
+@manual{circl,
+  title        = {Introducing OPAQUE-core: A Proof of Concept implementation of OPAQUE main functionality},
+  author       = {Tatiana Bradley and Sof\'{i}a Celi},
+  organization = {Cloudflare},
+  note         = {Available at \url{https://github.com/cloudflare/opaque-core}. Accessed Feb 2021},
+  month        = dec,
+  year         = {2020}
+}
+```
+
 ## License
 
 The project is licensed under the [BSD-3-Clause License](LICENSE).
